@@ -1,0 +1,67 @@
+	开始安装开发环境
+	我的电脑配置：CPU i5-5500U  GPU ：GeForce-840M 硬盘 500G 5400RPM   
+	运行内存：8G DDR3 1600MHz;
+	
+	方案一：
+	换系统win10,由于电脑绑定了视频，并且东西太多，不采取
+	方案二：
+	再买块硬盘装成win10, (没钱  不考虑)
+	方案三：
+	给硬盘分区再装win10双系统，
+	方案四：
+	装VMware后再装win10。（缺点：虚拟机软件会占用很多硬件资源）
+
+step1:
+	下载最新的VMware安装在电脑上;
+	下载windows10镜像
+	在VM上安装win10
+	后面依次安装webkit所依赖的开发环境工具，都已安装成功，
+	其中ithunes未安装 <-->（这个要安装）
+	在安装ruby时，后续安装引导程序未默认还要装个东西，但是没选择安装。
+	Subversion. Ninja 下载了但是没安装  因为文档是可选的，
+	
+step2:  
+	下载webkit的源码
+	我这里直接用git clone下载每次下载到一半时会出现以下错误：
+	fatal: The remote end hung up unexpectedly 2.48 GiB | 204.00 KiB/s
+	fatal: early EOF
+	fatal: index-pack failed
+	
+	上网查找尝试后依然没解决，源码的文件又很大，花了很多时间，我就直接去github网站上下载压缩包，然后解压，由于在虚拟机上，文件又大，解压了很久，明天再开始编译试试。
+step3:
+	开始编译：
+	>cd Tools/Script
+	>perl update_webkit
+	>perl buid_webkit
+
+	出现错误：
+	
+		CMake Error at C:/Program Files/CMake/share/cmake-3.13/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+	  Could NOT find Gperf (missing: GPERF_EXECUTABLE) (Required is at least
+	  version "3.0.1")
+	Call Stack (most recent call first):
+	  C:/Program Files/CMake/share/cmake-3.13/Modules/FindPackageHandleStandardArgs.cmake:378 (_FPHSA_FAILURE_MESSAGE)
+	  Source/cmake/FindGperf.cmake:17 (FIND_PACKAGE_HANDLE_STANDARD_ARGS)
+	  Source/cmake/WebKitCommon.cmake:17 (find_package)
+	  CMakeLists.txt:156 (include)
+	  
+	打开Source/cmake/FindGperf.cmake:17 定义到第17行发现
+	${CYGWIN_INSTALL_PATH}/bin
+	
+	我并没有安装cygmin，文档上说在windows下不安装cygmin也可以。
+	把这个路径手动改为了gperf下的安装的.exe文件的路径。
+	
+	然后系统环境变量中设置WEBKIT_OUTPUTDIR为自定义的路径名 C：/build_webkit;
+	然后接下来再次执行
+	>perl build_webkit;
+
+	编译完成后，build_webkit文件夹下就有编译生成的文件以及VS 的sln文件
+	随后，用VS打开C：/build_webkit/Webkit.sln;
+	
+	移除ALL_BUILD 和 ZEROCHECK等工程，（不然会报错说无法启动程序 ALL_BUILD）;
+	
+	然后选择Relese版本Win32，   Crtl+F5  执行程序，在此时程序可以顺利通过；
+	
+	如果选择Debug版本的话，那么在最后编译完成会出现CrashReport对话框；
+	
+	

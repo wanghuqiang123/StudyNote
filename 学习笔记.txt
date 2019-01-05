@@ -2,43 +2,4 @@
 但是在Windows下Qt制造类的时候缺少了这部分，不能把它初始化，因此，一定记得在创造类的时候要在构造函数中对定义的成员变量进行初始化。
 
 
-
-kernel32.lib
-user32.lib
-gdi32.lib
-winspool.lib
-comdlg32.lib
-advapi32.lib
-shell32.lib
-ole32.lib
-oleaut32.lib
-uuid.lib
-odbc32.lib
-odbccp32.lib
-
-
-window2012 server Visual Studio 附加依赖项原始项
-shlwapi.lib
-kernel32.lib
-user32.lib
-gdi32.lib
-winspool.lib
-shell32.lib
-ole32.lib
-oleaut32.lib
-uuid.lib
-comdlg32.lib
-advapi32.lib
-
-kernel32.lib
-user32.lib
-gdi32.lib
-winspool.lib
-comdlg32.lib
-advapi32.lib
-shell32.lib
-ole32.lib
-oleaut32.lib
-uuid.lib
-odbc32.lib
-odbccp32.lib
+对于计算机的经典著作来说，难啃的文章粗略看就行，不要死抠，看自己能看懂的，能直接带来帮助的，难啃的等自己有经验之后再来观看就行，
